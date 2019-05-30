@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,7 +19,7 @@ class RegisterController extends Controller
         $this->auth = $auth;
     }
 
-    public function register(Request $request)
+    public function register(Request $request): UserResource
     {
         $user = User::create([
             'name' => $request->name,
@@ -32,6 +33,10 @@ class RegisterController extends Controller
 
         $token = $this->auth->attempt($request->only('email', 'password'));
 
-        return $token;
+        return (new UserResource($user))->additional([
+            'meta' => [
+                'token' => $token
+            ]
+        ]);
     }
 }
