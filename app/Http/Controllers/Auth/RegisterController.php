@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\Auth\RegisterFormRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class RegisterController extends Controller
         $this->auth = $auth;
     }
 
-    public function register(Request $request): UserResource
+    public function register(RegisterFormRequest $request): UserResource
     {
         $user = User::create([
             'name' => $request->name,
