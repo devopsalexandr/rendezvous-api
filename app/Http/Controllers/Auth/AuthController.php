@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Requests\Auth\LoginFormRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Tymon\JWTAuth\JWTAuth;
 
 class AuthController extends Controller
@@ -32,5 +35,29 @@ class AuthController extends Controller
             ]
         ]);
 
+    }
+
+    public function logout(): JsonResponse
+    {
+        $this->auth->invalidate($this->auth->getToken());
+
+        return new JsonResponse(null, 200);
+    }
+
+    /**
+     * Refresh a token.
+     *
+     * @return JsonResponse
+     */
+    public function refresh(): JsonResponse
+    {
+        $token = $this->auth->refresh();
+
+        return new JsonResponse([
+            'data' => $this->auth->user(),
+            'meta' => [
+                'token' => $token
+            ]
+        ], 200);
     }
 }
