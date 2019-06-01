@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Events\AuthUserVisitProfile;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -25,6 +26,8 @@ class ProfileController extends Controller
 
     public function show(User $user): UserResource
     {
+        broadcast(new AuthUserVisitProfile($user, $this->user));
+
         return new UserResource($user);
     }
 
