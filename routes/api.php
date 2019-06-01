@@ -22,6 +22,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
         Route::get('/', 'ProfileController@index');
 
+        Route::get('/{id}', 'ProfileController@show');
+
     });
 
 });
