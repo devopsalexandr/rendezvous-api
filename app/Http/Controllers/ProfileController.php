@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -27,5 +28,12 @@ class ProfileController extends Controller
         $user = $user->with('photos', 'avatar')->findOrFail($id);
 
         return new UserResource($user);
+    }
+
+    public function update(Request $request)
+    {
+        $this->user->update($request->all());
+
+        return new UserResource($this->user);
     }
 }
