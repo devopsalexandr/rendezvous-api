@@ -23,10 +23,8 @@ class ProfileController extends Controller
         return new UserResource($this->user);
     }
 
-    public function show($id, User $user): UserResource
+    public function show(User $user): UserResource
     {
-        $user = $user->with('photos', 'avatar')->findOrFail($id);
-
         return new UserResource($user);
     }
 
