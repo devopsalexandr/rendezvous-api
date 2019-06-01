@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PhotoResource;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 
@@ -14,5 +15,22 @@ class PhotosController extends Controller
     public function __construct(?Authenticatable $user)
     {
         $this->user = $user;
+    }
+
+    public function store(Request $request): PhotoResource
+    {
+        $uploadedPhoto = $request->file('file');
+
+        $photoNameToStore = uniqid($this->user->id . '_'). "." .$uploadedPhoto->getClientOriginalExtension();
+
+        $photo = $this->user->photos()->create([
+            'name' => $photoNameToStore
+        ]);
+
+        $uploadedPhoto->storeAs($photo->storageFilesPathOfUser(), $photoNameToStore);
+
+        $this->user->save();
+
+        return new PhotoResource($photo);
     }
 }
