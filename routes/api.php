@@ -10,4 +10,12 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::post('search', 'SearchUsersController@index');
 
+    Route::prefix('photos')->group(function () {
+
+        Route::get('/', 'PhotosController@index');
+
+        Route::post('/', 'PhotosController@store');
+
+    });
+
 });
