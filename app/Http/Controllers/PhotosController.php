@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\PhotoResource;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class PhotosController extends Controller
 {
@@ -15,6 +16,11 @@ class PhotosController extends Controller
     public function __construct(?Authenticatable $user)
     {
         $this->user = $user;
+    }
+
+    public function index(): JsonResource
+    {
+        return PhotoResource::collection($this->user->photos);
     }
 
     public function store(Request $request): PhotoResource

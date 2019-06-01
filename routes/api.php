@@ -12,6 +12,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::prefix('photos')->group(function () {
 
+        Route::get('/', 'PhotosController@index');
+
         Route::post('/', 'PhotosController@store');
 
     });
