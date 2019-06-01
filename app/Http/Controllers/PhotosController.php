@@ -35,6 +35,8 @@ class PhotosController extends Controller
 
         $uploadedPhoto->storeAs($photo->storageFilesPathOfUser(), $photoNameToStore);
 
+        $this->user->avatar()->associate($photo);
+
         $this->user->save();
 
         return new PhotoResource($photo);
