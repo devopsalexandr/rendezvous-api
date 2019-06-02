@@ -28,6 +28,8 @@ class UserResource extends JsonResource
             'children' => $this->children,
             'marital' => $this->marital,
             'education' => $this->education,
+            'avatar' => new PhotoResource($this->avatar),
+            'photos' => PhotoResource::collection($this->photos)
         ];
     }
 }

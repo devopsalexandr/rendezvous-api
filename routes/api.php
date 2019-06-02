@@ -18,4 +18,14 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     });
 
+    Route::prefix('profile')->group(function () {
+
+        Route::get('/', 'ProfileController@index');
+
+        Route::put('/', 'ProfileController@update');
+
+        Route::get('/{user}', 'ProfileController@show');
+
+    });
+
 });
