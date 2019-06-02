@@ -6,6 +6,7 @@ Route::post('register', 'Auth\\RegisterController@register');
 Route::group(['middleware' => 'auth:api'], function () {
 
     Route::post('logout', 'Auth\\AuthController@logout');
+
     Route::post('refresh', 'Auth\\AuthController@refresh');
 
     Route::post('search', 'SearchUsersController@index');

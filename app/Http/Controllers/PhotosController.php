@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePhotoFormRequest;
 use App\Http\Resources\PhotoResource;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class PhotosController extends Controller
         return PhotoResource::collection($this->user->photos);
     }
 
-    public function store(Request $request): PhotoResource
+    public function store(StorePhotoFormRequest $request): PhotoResource
     {
         $uploadedPhoto = $request->file('file');
 
