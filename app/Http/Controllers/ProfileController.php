@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Events\AuthUserVisitProfile;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -31,7 +31,7 @@ class ProfileController extends Controller
         return new UserResource($user);
     }
 
-    public function update(Request $request)
+    public function update(UpdateUserRequest $request): UserResource
     {
         $this->user->update($request->all());
 
