@@ -15,6 +15,8 @@ class CreateConversationsTable extends Migration
     {
         Schema::create('conversations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('user_one')->unsigned();
+            $table->integer('user_two')->unsigned();
             $table->timestamps();
         });
     }
