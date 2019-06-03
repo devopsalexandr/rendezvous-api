@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Conversation\Conversation;
 use App\Models\Conversation\Message;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -87,5 +88,10 @@ class User extends Authenticatable implements JWTSubject
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function conversations()
+    {
+        return Conversation::where('user_one', $this->id)->orWhere('user_two', $this->id);
     }
 }
