@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Conversations;
 
 use App\Events\ConversationCreated;
 use App\Events\MessageCreated;
+use App\Http\Requests\CreateMessageFormRequest;
 use App\Http\Resources\ConversationResource;
 use App\Http\Resources\MessageResource;
 use App\Models\Conversation\Conversation;
@@ -24,7 +25,7 @@ class ConversationMessagesController extends Controller
         return MessageResource::collection($messages);
     }
 
-    public function store(Request $request): JsonResource
+    public function store(CreateMessageFormRequest $request): JsonResource
     {
         //Todo: authorize action, check in ban list
 
