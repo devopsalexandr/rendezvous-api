@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Conversations;
 
+use App\Events\ConversationCreated;
+use App\Events\MessageCreated;
 use App\Http\Resources\ConversationResource;
 use App\Http\Resources\MessageResource;
 use App\Models\Conversation\Conversation;
@@ -40,7 +42,10 @@ class ConversationMessagesController extends Controller
                 'user_two' => $request->receiverId,
             ]);
 
-            // Todo: Broadcast conversation created
+            broadcast(new ConversationCreated(
+                new ConversationResource($conversation),
+                $request->receiverId
+            ));
         }
 
         $message = $conversation->messages()->create([
@@ -48,8 +53,10 @@ class ConversationMessagesController extends Controller
             'body' => $request->body,
         ]);
 
-        // Todo: Broadcast message created
+        $messageResource = new MessageResource($message);
 
-        return new MessageResource($message);
+        broadcast(new MessageCreated($messageResource));
+
+        return $messageResource;
     }
 }
