@@ -29,4 +29,13 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     });
 
+    Route::prefix('conversations')->group(function () {
+
+        Route::get('/', 'Conversations\\ConversationsController@index');
+
+        Route::get('/{conversation}/messages', 'Conversations\\ConversationMessagesController@index');
+
+        Route::post('/messages', 'Conversations\\ConversationMessagesController@store');
+    });
+
 });
