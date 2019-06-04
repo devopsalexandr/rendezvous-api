@@ -15,6 +15,8 @@ class ConversationMessagesController extends Controller
 {
     public function index(Conversation $conversation): JsonResource
     {
+        $this->authorize('view', $conversation);
+
         $messages = $conversation->messages()->orderBy('created_at', 'asc')->paginate(20);
 
         return MessageResource::collection($messages);
