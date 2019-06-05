@@ -1,4 +1,4 @@
-##Rendezvous - Backend RESTful API for a social network
+## Rendezvous - Backend RESTful API for a social network
 
 Build on [Laravel Framework](https://laravel.com/).
 
